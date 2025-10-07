@@ -18,16 +18,6 @@ export const SpotifyStyle = styled.div`
   `}
 `
 export const LastFmLogo = styled.div`
-  position: absolute;
-  width: 45px;
-  left: -12px;
-  top: -60px;
-  height: 300px;
-  z-index: 10;
-  background: #00cc83;
-  ${media.md`
-    display: none;
-  `}
   a {
     height: 50px;
     width: 50px;
@@ -43,7 +33,6 @@ export const Toptext = styled.div`
   height: 20px;
   position: absolute;
   top: -70px;
-  left: 40px;
   right: 0;
   color: ${color.white};
   display: flex;
@@ -105,26 +94,69 @@ export const Player = styled.div`
     width: 100%;
     display: flex;
     list-style: none;
-    justify-content: space-between;
+    padding: 10px 10px 10px 0px;
     ${media.sm`
-        padding: 0 40px;
-      `}
+      padding: 5px 20px;
+    `}
     li {
-      width: 33.333%;
+      margin-bottom: 0px;
     }
     li:nth-child(1) {
+      height: 50px;
+      img {
+        width: 50px;
+      }
       ${media.sm`
-        width: 100%;
-        display: flex;
-        justify-content: center;
+        /* display: flex;
+        justify-content: center; */
       `}
     }
     li:nth-child(2) {
-      margin-left: 50px;
+      padding-left: 50px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 45%;
+      p {
+        color: ${color.MossGreen};
+      }
       ${media.sm`
-        margin-left: 0px;
+        padding-left: 10px;
+      `}
+    }
+    li:nth-child(3) {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      h4{
+        color: ${color.Gold};
+      }
+      ${media.sm`
         display: none;
       `}
+    }
+    li:nth-child(4) {
+      width: 47%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      p {
+        color: ${color.MossGreen};
+        letter-spacing: 1.4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        ${media.sm`
+          text-align: right;
+          letter-spacing: 1px;
+          white-space: normal;
+          overflow: none;
+          text-overflow: none;
+        `}
+      }
+    }
+    :last-child {
+      border-bottom: none;
     }
     span {
       color: ${color.white};
@@ -139,7 +171,7 @@ export const Player = styled.div`
         letter-spacing: 0px;
       `}
       :hover {
-        border-bottom: 5px solid ${color.MossGreen};
+        border-bottom: 2px solid ${color.MossGreen};
       }
     }
     h4 {

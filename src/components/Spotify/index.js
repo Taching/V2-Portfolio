@@ -3,23 +3,30 @@ import API from "../../../utils/API"
 import Loading from "@components/Loading"
 import {
   SpotifyStyle,
-  LastFmLogo,
+  // LastFmLogo,
   Toptext,
   Player,
-  RepeatIcon,
+  // RepeatIcon,
 } from "./style.js"
 import SpotifyIcon from "../../Icons/Spotify"
-import LastFm from "../../Icons/Lastfm"
-import Repeat from "../../Icons/Repeat"
+// import LastFm from "../../Icons/Lastfm"
+// import Repeat from "../../Icons/Repeat"
 class Spotify extends React.Component {
   state = {
     isLoading: true,
     songList: [],
+    imageList: []
   }
   async componentDidMount() {
     try {
       let musicData = await API.get()
-      musicData = musicData.data.toptracks.track
+      musicData = musicData.data.recenttracks.track
+      console.log(musicData)
+      // if (musicData[0]["@attr"].nowplaying == undefined) {
+      //   console.log("yes its playing")
+      // } else {
+      //   console.log("no its not playing")
+      // }
       this.setState({ songList: musicData, isLoading: false })
     } catch (e) {
       console.log(e)
@@ -30,11 +37,6 @@ class Spotify extends React.Component {
     return (
       <SpotifyStyle>
         {isLoading ? <Loading isLoading /> : null}
-        <LastFmLogo>
-          <a href="https://www.last.fm/user/taching/library">
-            <LastFm width="40px" height="40px" />
-          </a>
-        </LastFmLogo>
         <Toptext>
           <a href="https://open.spotify.com/user/tachingers?si=NSdCKhY9S8OKpCMs-i7O1g">
             <p>song that I cant live without this month</p>
@@ -44,30 +46,21 @@ class Spotify extends React.Component {
         </Toptext>
         {songList.slice(0, 5).map((song, index) => (
           <Player key={index}>
-            <span>0{index + 1}.</span>
             <ul>
               <li>
-                <a href={song.url}>{song.name}</a>
-              </li>
-              <li className="artist">
-                <h4>
-                  <a href={song.artist.url}>{song.artist.name}</a>
-                </h4>
+                <img alt="coveralbum" src={JSON.parse(JSON.stringify(song.image[1]["#text"]))}></img>
               </li>
               <li>
-                <RepeatIcon>
-                  <Repeat width="30px" height="30px" />
-                  <span
-                    className={`count ${
-                      song.playcount < 10 ? "lessdigit" : ""
-                    }`}
-                  >
-                    {song.playcount < 100 ? song.playcount : "99"}
-                  </span>
-                </RepeatIcon>
+                <a href={song.url}>{song.name}</a>
+                <p>{song.artist["#text"]}</p>
+              </li>
+              <li>
+                <h4>X</h4>
+              </li>
+              <li>
+                <p>{song.album["#text"]}</p>
               </li>
             </ul>
-            {/* <p>{Math.floor(song.duration / 60)}min.</p> */}
           </Player>
         ))}
       </SpotifyStyle>
